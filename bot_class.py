@@ -1,9 +1,8 @@
 import socket
 import requests
-import json
 import time
-import threading
 import markovify
+
 
 class Bot:
     """
@@ -12,12 +11,14 @@ class Bot:
     personas = []
     personasfiles = ["biglebowski", "spyguide", "dreampsychology", "freudOOP", "swfqw"]
 
-    def __init__(self, host, port, nick, channel):
+    def __init__(self, host, port, channel, nick):
         self.host = host
         self.port = port
         self.nick = nick
         self.channel = channel
         self.s = socket.socket()
+        self.fodder()
+        self.connect()
 
     def connect(self):
         """
@@ -105,8 +106,12 @@ class Bot:
 
         if request.status_code == 200:
             for i in range(limit):
-                self.privmsg("{} - {} ".format(text[1][i], text[2][i]))
-                self.privmsg(text[3][i])
+                try:
+                    self.privmsg("{} - {} ".format(text[1][i].encode('utf-8'), text[2][i].encode('utf-8')))
+                    self.privmsg(text[3][i].encode('utf-8'))
+                except IndexError or UnicodeError:
+                    pass
+
         else:
             self.privmsg("Couldn't fetch wiki")
 
@@ -137,17 +142,3 @@ class Bot:
                 elif "!bot" in text:
                     self.talkytalk()
 
-
-if __name__ == "__main__":
-
-    try:
-        a = Bot("irc.freenode.org", 6667, "FreudBot", "#tk")
-        a.fodder()
-        a.connect()
-        time.sleep(2)
-        t = threading.Thread(target=a.maintain)
-        t.start()
-
-    except KeyboardInterrupt:
-        t.stop()
-        exit(0)
