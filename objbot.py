@@ -1,8 +1,9 @@
 import socket
+import requests
+import json
 import time
 import threading
 import markovify
-
 
 class Bot:
     """
@@ -92,6 +93,23 @@ class Bot:
         except:
             self.privmsg("[!] Cannot compute new sentence [!]")
 
+    def wikilookup(self, text, limit=1):
+        """
+        Querries wikipedia search for "text" and returns paragraphs in JSON format
+        """
+
+        wikiurl = ("https://en.wikipedia.org/w/api.php?action=opensearch&search=" +
+                   text + "&limit=" + str(limit) + "&format=json")
+        request = requests.get(wikiurl)
+        text = request.json()
+
+        if request.status_code == 200:
+            for i in range(limit):
+                self.privmsg("{} - {} ".format(text[1][i], text[2][i]))
+                self.privmsg(text[3][i])
+        else:
+            self.privmsg("Couldn't fetch wiki")
+
     def maintain(self):
         """
         Main bot loop for handling commands
@@ -106,6 +124,9 @@ class Bot:
                 if "PING" in text:
                     self.s.send(("PONG " + str(text.split()[-1]) + "\r\n").encode('utf-8'))
                     print("PONG " + str(text.split()[-1]) + "\r\n")
+                elif "!wiki" in text:
+                    query = text.split("!wiki")[1].split("\\r\\n")[0]
+                    self.wikilookup(query)
                 elif "!botout" in text:
                     self.privmsg("Goodbye y'all")
                     self.s.close()
