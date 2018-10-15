@@ -25,16 +25,16 @@ The default channel is #tk, and bot nickname JustABotBotBot
  
 # Commands
 * !hi 
--* Returns back a greeting with the username
+ - Returns back a greeting with the username
 
 * !bot
--* Generates a random sentence from our markov-chain model
+ - Generates a random sentence from our markov-chain model
 
 * !wiki <search_term>
--* Wiki lookup for <search_term>, returns Search Term, Description and Link to Wiki
+ - Wiki lookup for <search_term>, returns Search Term, Description and Link to Wiki
 
 * !botout
--* Say's goodbye and exits the channel
+ - Say's goodbye and exits the channel
  
 # TODO:
  - google lookup
