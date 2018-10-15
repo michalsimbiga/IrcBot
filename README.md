@@ -10,9 +10,6 @@
 - -c switch : takes in irc_channel
 - -n switch : takes in bot_nickname
 
-By default, bot connects to irc.freenode.org on port 6667
-The default channel is #tk, and bot nickname JustABotBotBot 
-
 ## Features:
 ### Connection
  - Works on sockets to connect our bot to host:port #channel instances.
@@ -24,16 +21,16 @@ The default channel is #tk, and bot nickname JustABotBotBot
  - Uses wiki api to answer queries
  
 # Commands
-* !hi
+* `!hi`
     - Returns back a greeting with the username
 
-* !bot
+* `!bot`
     - Generates a random sentence from our markov-chain model
 
-* !wiki <search_term>
+* `!wiki <search_term>`
     - Wiki lookup for <search_term>, returns Search Term, Description and Link to Wiki
 
-* !botout
+* `!botout`
     - Say's goodbye and exits the channel
  
 # TODO:
