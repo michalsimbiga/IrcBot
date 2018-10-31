@@ -14,9 +14,16 @@
 ### Connection
  - Works on sockets to connect our bot to host:port #channel instances.
  - Maintains itself by answering Ping-Pong queries
+ 
+### Personas
+ - Create new /personas folder inside project directory
+ - Add text (.txt) files to be used for creating Markov model from
+ - Change list of personas inside bot_class.py file to consist of your filenames in personas/
+ 
 ### Sentence generator
  - Utilizes markovify package to create markov-chains from given persona files
  - Creates json model of those chains and stores it locally for future reuse
+ 
 ### Wiki lookup
  - Uses wiki api to answer queries
  
